@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - action
+    tags:
+    - '*'
+
+jobs:
+  build_and_release:
+    name: runimage-openssh
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build archlinux packages
+        uses: countstarlight/arch-makepkg-action@master
+        with:
+          scripts: |
+            gpg --keyserver keyserver.ubuntu.com --recv-keys 2A3F414E736060BA
+            makepkg -fsCc --noconfirm
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: runimage-openssh*.pkg.tar.zst
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

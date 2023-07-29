@@ -1,0 +1,95 @@
+diff --git a/monitor.c b/monitor.c
+index 1489c78d..38176d3e 100644
+--- a/monitor.c
++++ b/monitor.c
+@@ -1557,7 +1557,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
+ 	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
+ 	if (res == 0)
+ 		goto error;
+-	pty_setowner(authctxt->pw, s->tty);
++	// pty_setowner(authctxt->pw, s->tty);
+ 
+ 	if ((r = sshbuf_put_u32(m, 1)) != 0 ||
+ 	    (r = sshbuf_put_cstring(m, s->tty)) != 0)
+diff --git a/sshd_config b/sshd_config
+index 36894ace..ba3b1be9 100644
+--- a/sshd_config
++++ b/sshd_config
+@@ -10,9 +10,9 @@
+ # possible, but leave them commented.  Uncommented options override the
+ # default value.
+ 
+-#Port 22
++Port 2222
+ #AddressFamily any
+-#ListenAddress 0.0.0.0
++ListenAddress 0.0.0.0
+ #ListenAddress ::
+ 
+ #HostKey /etc/ssh/ssh_host_rsa_key
+@@ -29,16 +29,16 @@
+ # Authentication:
+ 
+ #LoginGraceTime 2m
+-#PermitRootLogin prohibit-password
++PermitRootLogin without-password
+ #StrictModes yes
+ #MaxAuthTries 6
+ #MaxSessions 10
+ 
+-#PubkeyAuthentication yes
++PubkeyAuthentication yes
+ 
+ # The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
+ # but this is overridden so installations will only check .ssh/authorized_keys
+-AuthorizedKeysFile	.ssh/authorized_keys
++AuthorizedKeysFile	.ssh/authorized_keys /etc/ssh/authorized_keys
+ 
+ #AuthorizedPrincipalsFile none
+ 
+@@ -54,11 +54,11 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ #IgnoreRhosts yes
+ 
+ # To disable tunneled clear text passwords, change to no here!
+-#PasswordAuthentication yes
+-#PermitEmptyPasswords no
++PasswordAuthentication no
++PermitEmptyPasswords no
+ 
+ # Change to no to disable s/key passwords
+-#KbdInteractiveAuthentication yes
++KbdInteractiveAuthentication no
+ 
+ # Kerberos options
+ #KerberosAuthentication no
+@@ -81,16 +81,16 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ # and KbdInteractiveAuthentication to 'no'.
+ #UsePAM no
+ 
+-#AllowAgentForwarding yes
+-#AllowTcpForwarding yes
+-#GatewayPorts no
+-#X11Forwarding no
++AllowAgentForwarding yes
++AllowTcpForwarding yes
++GatewayPorts yes
++X11Forwarding yes
+ #X11DisplayOffset 10
+ #X11UseLocalhost yes
+ #PermitTTY yes
+ #PrintMotd yes
+ #PrintLastLog yes
+-#TCPKeepAlive yes
++TCPKeepAlive yes
+ #PermitUserEnvironment no
+ #Compression delayed
+ #ClientAliveInterval 0
+@@ -98,7 +98,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ #UseDNS no
+ #PidFile /var/run/sshd.pid
+ #MaxStartups 10:30:100
+-#PermitTunnel no
++PermitTunnel yes
+ #ChrootDirectory none
+ #VersionAddendum none
+ 
