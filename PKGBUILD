@@ -4,7 +4,7 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=runimage-openssh
-pkgver=9.3p2
+pkgver=9.4p1
 pkgrel=1
 pkgdesc="SSH protocol implementation for remote login, command execution and file transfer for RunImage container"
 arch=('x86_64')
@@ -37,7 +37,7 @@ source=(
 )
 conflicts=('openssh')
 provides=("openssh=$pkgver")
-md5sums=('e21180e7c902e596b047b5520842c2e1'
+md5sums=('4bbd56a7ba51b0cd61debe8f9e77f8bb'
          'SKIP'
          '026393a656283b5d16b2641f7feaf77d'
          '53868d434cb2db6e46b46abc1f3ff397'
