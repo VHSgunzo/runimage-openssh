@@ -1,15 +1,22 @@
 # Maintainer: VHSgunzo <vhsgunzo.github.io>
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Giancarlo Razzolini <grazzolini@archlinux.org>
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 # Contributor: Aaron Griffin <aaron@archlinux.org>
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=runimage-openssh
-pkgver=9.4p1
+pkgver=9.6p1
 pkgrel=1
 pkgdesc="SSH protocol implementation for remote login, command execution and file transfer for RunImage container"
 arch=('x86_64')
 url='https://www.openssh.com/portable.html'
-license=('custom:BSD')
+license=(
+  'BSD-2-Clause'
+  'BSD-3-Clause'
+  'ISC'
+  'MIT'
+)
 depends=(
   'glibc'
   'ldns'
@@ -21,6 +28,7 @@ depends=(
 makedepends=('libfido2' 'linux-headers')
 optdepends=(
   'libfido2: FIDO/U2F support'
+  'sh: for ssh-copy-id and findssl.sh'
   'x11-ssh-askpass: input passphrase in X'
   'xorg-xauth: X11 forwarding'
 )
@@ -37,7 +45,7 @@ source=(
 )
 conflicts=('openssh')
 provides=("openssh=$pkgver")
-md5sums=('4bbd56a7ba51b0cd61debe8f9e77f8bb'
+md5sums=('5e90def5af3ffb27e149ca6fff12bef3'
          'SKIP'
          '026393a656283b5d16b2641f7feaf77d'
          '53868d434cb2db6e46b46abc1f3ff397'
@@ -64,6 +72,7 @@ build() {
     --with-xauth=/usr/bin/xauth
     --with-pid-dir=/run
     --with-default-path='/usr/local/sbin:/usr/local/bin:/usr/bin:/var/RunDir/static'
+    --without-zlib-version-check
   )
 
   cd "openssh-${pkgver}"
