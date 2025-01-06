@@ -17,6 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install deps
+        run: |
+          sudo sh -c 'apt update && apt install qemu-user-static -y'
+
       - name: Build archlinux x86_64 package
         run: |
             docker run --rm -v "${{ github.workspace }}:/root" --platform=linux/amd64 archlinux:base-devel /root/build.sh
