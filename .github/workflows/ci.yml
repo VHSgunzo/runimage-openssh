@@ -19,11 +19,11 @@ jobs:
 
       - name: Build archlinux x86_64 package
         run: |
-            docker run --rm -it -v "${{ github.workspace }}:/root" --platform=linux/amd64 archlinux:base-devel /root/build.sh
+            docker run --rm -v "${{ github.workspace }}:/root" --platform=linux/amd64 archlinux:base-devel /root/build.sh
 
       - name: Build archlinux aarch64 package
         run: |
-            docker run --rm -it -v "${{ github.workspace }}:/root" --platform=linux/arm64 lopsided/archlinux:latest /root/build.sh
+            docker run --rm -v "${{ github.workspace }}:/root" --platform=linux/arm64 lopsided/archlinux:latest /root/build.sh
 
       - name: Release
         uses: softprops/action-gh-release@v1
