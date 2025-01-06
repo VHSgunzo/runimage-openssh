@@ -17,12 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build archlinux packages
-        uses: countstarlight/arch-makepkg-action@master
-        with:
-          scripts: |
-            gpg --keyserver keyserver.ubuntu.com --recv-keys 2A3F414E736060BA ;
-            makepkg -fsCc --noconfirm
+      - name: Build archlinux x86_64 package
+        run: |
+            docker run --rm -it -v "${{ github.workspace }}:/root" --platform=linux/amd64 archlinux:base-devel /root/build.sh
+
+      - name: Build archlinux aarch64 package
+        run: |
+            docker run --rm -it -v "${{ github.workspace }}:/root" --platform=linux/arm64 lopsided/archlinux:latest /root/build.sh
 
       - name: Release
         uses: softprops/action-gh-release@v1

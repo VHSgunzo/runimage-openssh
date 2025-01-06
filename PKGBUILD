@@ -1,15 +1,13 @@
 # Maintainer: VHSgunzo <vhsgunzo.github.io>
-# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
-# Maintainer: Giancarlo Razzolini <grazzolini@archlinux.org>
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 # Contributor: Aaron Griffin <aaron@archlinux.org>
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=runimage-openssh
-pkgver=9.6p1
+pkgver=9.9p1
 pkgrel=1
 pkgdesc="SSH protocol implementation for remote login, command execution and file transfer for RunImage container"
-arch=('x86_64')
+arch=('x86_64' 'aarch64')
 url='https://www.openssh.com/portable.html'
 license=(
   'BSD-2-Clause'
@@ -45,7 +43,7 @@ source=(
 )
 conflicts=('openssh')
 provides=("openssh=$pkgver")
-md5sums=('5e90def5af3ffb27e149ca6fff12bef3'
+md5sums=('1893c9b712eb8c55ec2d5146e7323b92'
          'SKIP'
          '026393a656283b5d16b2641f7feaf77d'
          '53868d434cb2db6e46b46abc1f3ff397'
